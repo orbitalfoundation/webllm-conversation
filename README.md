@@ -4,11 +4,13 @@ Conversational puppets
 
 # Running
 
+```
 gh repo clone makerlab/puppet
 npm install
 npm run build
 npm install tiny-server
 tiny-server
+```
 
 # Changelog
 
