@@ -6,7 +6,7 @@ let engine = null
 
 export async function llm_load(callback) {
 	engine = await CreateWebWorkerMLCEngine(
-		new Worker("./llm-worker.js", { type: "module" }),
+		new Worker(`${import.meta.url}/../llm-worker.js`, { type: "module" }),
 		selectedModel,
 		{ initProgressCallback: callback },
 	)

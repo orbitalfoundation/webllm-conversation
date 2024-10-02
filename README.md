@@ -26,7 +26,7 @@ In the first version of the conversational puppet framework we want to:
 
 We also have to establish a few conventions:
 
-1) Bundling ... ESBuild will do for now although it doesn't have introspection inside dynamically fetched imports so we have to go and specify imports (see 'npm run build and esbuild-make.mjs). The main reason to use esbuild instead of Vite is that Vite has many barriers and opaque configuration options that are difficult to reconfigure such as for github pages. See https://esbuild.github.io/ .
+1) Bundling ... ESBuild will do for now although it doesn't have introspection inside dynamically fetched imports so we have to go and specify imports (see 'npm run build and esbuild-make.mjs). The main reason to use esbuild instead of Vite is that Vite has opaque configuration options such as for github pages. See https://esbuild.github.io/ .
 
 2) Bring up web-llm ... Our aspirations are simply to bring up one of their demos and see how it well it works. Older hardware may be challenged. See https://github.com/mlc-ai/web-llm/
 
