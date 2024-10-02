@@ -6,6 +6,7 @@ Conversational puppets
 
 ```
 gh repo clone makerlab/puppet
+cd puppet
 npm install
 npm run build
 npm install tiny-server
