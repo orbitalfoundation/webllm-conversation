@@ -93,9 +93,6 @@
 </head>
 <body>
 	<h1>Conversational Puppets</h1>
-	<p style="text-align: center; margin-bottom: 20px;">
-		<a href="https://github.com/mlc-ai/web-llm" target="_blank" rel="noopener noreferrer">View on GitHub</a>
-	</p>
 	<div id="status-box" class="status-loading">Loading...</div>
 	<div id="system-content-container">
 		<label for="system-content-input">System Content:</label>
@@ -108,6 +105,20 @@
 			<button type="submit">Send</button>
 		</form>
 	</div>
-	<script type="module" src="./dist/main.js"></script>
+
+<h1>Version 0 Notes</h1>
+	<p style="text-align: center; margin-bottom: 20px;">
+
+This is a conversational puppet framework that will be incrementally enhanced. For the first version the goal handle user input through a text chat window with a limited message history. It should be capable of sending user prompts to a large language model (LLM) and receiving responses, which will be broken down into "breath" segments—each representing approximately one human breath of speech. The responses should be visible to the user, and the system must allow for interruptions, including stopping the LLM at any point. Additionally, we want to clearly indicate when the LLM is thinking or speaking versus when it is ready for new input.
+<br/>
+<br/>
+View source at <a href="https://github.com/makerlab/puppet" target="_blank" rel="noopener noreferrer">github/makerlab/puppet</a>
+<br/>
+· Based on work by <a href="https://github.com/mlc-ai/web-llm" target="_blank" rel="noopener noreferrer">github/mlc-ai/web-llm</a> 
+<br/>
+
+· Open Source MIT License 
+</p>
 </body>
 </html>
+<script type="module" src="./dist/main.js"></script>
