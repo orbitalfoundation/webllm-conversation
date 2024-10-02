@@ -19,6 +19,8 @@ tiny-server
 
 ## Version 0
 
+Note you will need a powerful laptop/rig to run this demo with any reasonable performance (circa 2024).
+
 In the first version of the conversational puppet framework we want to:
 
 1) be able to handle user input using a text chat window with limited history
