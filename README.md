@@ -17,6 +17,10 @@ tiny-server
 
 # Changelog
 
+## Version 1
+
+Voice input
+
 ## Version 0
 
 Note you will need a powerful laptop/rig to run this demo with any reasonable performance (circa 2024).
