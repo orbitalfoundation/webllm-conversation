@@ -63,16 +63,25 @@ function addMessageToDisplay(sender: string, text: string) {
 	}
 }
 
-function setStatusOnDisplay(status: 'ready' | 'thinking' | 'speaking') {
+function setStatusOnDisplay(status: 'loading' | 'ready' | 'thinking' | 'speaking') {
 	if (statusBox) {
 		statusBox.className = `status-${status}`;
 		statusBox.textContent = status.charAt(0).toUpperCase() + status.slice(1);
 	}
 }
 
-function updateProgress(current: number, total: number) {
+function updateProgressOnDisplay(current: number = 0, total: number = 0) {
+
+	if(!current && !total) {
+		progressBar.style.display = 'none';
+		progressText.style.display = 'none';
+		return
+	}
+	progressBar.style.display = 'block';
+	progressText.style.display = 'block';
+
+	const percentage = (current / total) * 100;
 	if (progressBar && progressText) {
-		const percentage = (current / total) * 100;
 		progressBar.value = percentage;
 		progressText.textContent = `${current}/${total} (${percentage.toFixed(1)}%)`;
 	}
@@ -86,24 +95,28 @@ function updateProgress(current: number, total: number) {
 //
 ///////////////////////////////////////////////////////////////////////////////////////
 
-import { reason_load, reason, reason_stop } from './puppet/reason.js'
+import { reason_load, reason, reason_stop } from './reason.js'
+
+let status = 'loading'
+function setStatus(_status: 'loading' | 'ready' | 'thinking' | 'speaking') {
+	status = _status
+	setStatusOnDisplay(status)
+}
 
 async function load() {
+	setStatus('loading')
 	reason_load((report: any) => {
 		if (report.text) {
 			const match = report.text.match(/Loading model from cache\[(\d+)\/(\d+)\]/);
 			if (match) {
 				const [current, total] = match.slice(1).map(Number);
-				updateProgress(current, total);
+				updateProgressOnDisplay(current, total);
 			}
 		}
 		if(report.progress) {
-			setStatusOnDisplay('ready')
+			setStatus('ready')
 			setVoicePermitted(true)
-			if (progressBar && progressText) {
-				progressBar.style.display = 'none';
-				progressText.style.display = 'none';
-			}
+			updateProgressOnDisplay()
 		}
 	})
 }
@@ -114,12 +127,18 @@ load()
 // deal with user inputs
 async function dealWithUserPrompt(message) {
 
+	// sanity check
+	if(status=='loading') {
+		addMessageToDisplay('Still loading...')
+		return
+	}
+
 	// always stop the llm if there is new possible content
 	await reason_stop()
 
 	// if the user didn't type anything then let's just do nothing
 	if (!message || !message.length) {
-		setStatusOnDisplay('ready');
+		setStatus('ready');
 		setVoicePermitted(true)
 		return
 	};
@@ -136,13 +155,13 @@ async function dealWithUserPrompt(message) {
 	// go ahead and do the actual reasoning inside of the llm worker
 	reason(request, (response) => {
 		if (response.breath && response.breath.length) {
-			setStatusOnDisplay('speaking');
+			setStatus('speaking');
 			setVoicePermitted(false)
 			addMessageToDisplay('LLM', response.breath);
 		}
 		if (response.message) {
 			console.log("...done");
-			setStatusOnDisplay('ready');
+			setStatus('ready');
 			setVoicePermitted(true)
 		}
 	});

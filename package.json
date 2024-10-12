@@ -1,12 +1,11 @@
 {
-	"name": "puppet",
-	"description": "conversational puppets",
-	"version": "0.0.1",
+	"name": "webllm-conversation",
+	"description": "conversational browser based llm",
+	"version": "0.0.2",
 	"type": "module",
 	"scripts": {
 		"build": "node esbuild-make.mjs"
 	},
-	"author": "the great unconsciousness",
 	"license": "ISC",
 	"devDependencies": {
 		"esbuild": "0.24.0"
